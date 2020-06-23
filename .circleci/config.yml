@@ -40,8 +40,10 @@ jobs:
           path: test-results
           destination: tr1
       - run:
-          name: Check Commands
+          name: Install AWS
           command: |
+            pip install awscli
             which aws
+
             
        
