@@ -10,7 +10,8 @@ jobs:
     docker:
       - image: circleci/python:3.6.4
         environment:
-          PIPENV_VENV_IN_PROJECT: "True"
+          LOCAL_AWSCLI: True
+          PIPENV_VENV_IN_PROJECT: True
           AWS_RESOURCE_NAME_PREFIX: circleci-py-demo
           DATABASE_URL: postgresql://root:password@localhost/circle_test?sslmode=disable
           #DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost/circle_test?sslmode=disable
@@ -47,7 +48,7 @@ jobs:
           name: Install AWS CLI
           command: |
             # set -eo pipefail is default
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" -a ${LOCAL_AWSCLI} == True ]; then
               pip install awscli
               aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
               aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
@@ -76,6 +77,10 @@ workflows:
       - build:
           context: techworks
       - aws-cli-example:
-         context: techworks 
-         requires:
-           - build
+          context: techworks 
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
