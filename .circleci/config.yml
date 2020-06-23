@@ -1,10 +1,9 @@
 # https://circleci.com/docs/2.0/language-python/
 
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/circleci-demo-python-django
-    context: techworks
     docker:
       - image: circleci/python:3.6.4
         environment:
@@ -56,4 +55,9 @@ jobs:
             fi 
 
             
-       
+workflows:
+  #version: 2
+  demo-workflow:
+    jobs:
+      - build:
+          context: techworks
