@@ -56,6 +56,7 @@ jobs:
 
             fi 
   aws-cli-example:
+    # image hold has awscli installed by default
     executor: aws-cli/default
     steps:
       - checkout
@@ -64,6 +65,8 @@ jobs:
       - run: 
           command: |
             echo "Run your code here"
+            echo  cat ~/.aws/credentials
+            cat ~/.aws/credentials
             aws s3 ls
             
 workflows:
@@ -74,3 +77,5 @@ workflows:
           context: techworks
       - aws-cli-example:
          context: techworks 
+         requires:
+           - build
