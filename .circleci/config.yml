@@ -46,12 +46,12 @@ jobs:
             # -eo pipefail is default
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               pip install awscli
-              echo aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
-              echo aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
-              echo aws configure set region ${AWS_DEFAULT_REGION} --profile default
+              aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
+              aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
+              aws configure set region ${AWS_DEFAULT_REGION} --profile default
               cat ~/.aws/config
               cat ~/.aws/credentials
-              echo aws s3 ls
+              aws s3 ls
             fi 
 
             
