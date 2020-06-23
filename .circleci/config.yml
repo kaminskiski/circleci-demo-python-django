@@ -43,15 +43,14 @@ jobs:
       - run:
           name: Install AWS CLI
           command: |
-            # -eo pipefail is default
+            # set -eo pipefail is default
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               pip install awscli
               aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
               aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
               aws configure set region ${AWS_DEFAULT_REGION} --profile default
-              cat ~/.aws/config
-              cat ~/.aws/credentials
-              aws s3 ls
+              aws s3 ls # circleci user is granted S3Read default permission.
+
             fi 
 
             
