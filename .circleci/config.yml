@@ -48,7 +48,7 @@ jobs:
           name: Install AWS CLI
           command: |
             # set -eo pipefail is default
-            if [ "${CIRCLE_BRANCH}" == "master" -a ${LOCAL_AWSCLI} == True ]; then
+            if [[ "${CIRCLE_BRANCH}" == "master" &&  ${LOCAL_AWSCLI} == True ]] ; then
               pip install awscli
               aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
               aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
