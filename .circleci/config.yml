@@ -1,6 +1,9 @@
 # https://circleci.com/docs/2.0/language-python/
-
 version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.1.0
+
 jobs:
   build:
     working_directory: ~/circleci-demo-python-django
@@ -52,7 +55,16 @@ jobs:
               aws s3 ls # circleci user is granted S3Read default permission.
 
             fi 
-
+  aws-cli-example:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: example
+      - run: 
+          command: |
+            echo "Run your code here"
+            aws s3 ls
             
 workflows:
   #version: 2
@@ -60,3 +72,5 @@ workflows:
     jobs:
       - build:
           context: techworks
+      - aws-cli-example:
+         context: techworks 
