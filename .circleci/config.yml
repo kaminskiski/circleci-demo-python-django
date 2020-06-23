@@ -25,8 +25,9 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          key: aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
+          keys:
+            - deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
       - run:
           command: |
             sudo pip install pipenv
