@@ -39,3 +39,9 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+      - run:
+          name: Check Commands
+          command: |
+            which aws
+            
+       
