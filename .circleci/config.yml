@@ -3,6 +3,10 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@1.1.0
+  aws-ecs: circleci/aws-ecs@1.2.0
+  aws-ecr: circleci/aws-ecr@6.9.1
+  #aws-parameter-store: circleci/aws-parameter-store@1.0.0
+  #aws-secrets-manager: pathmotion/aws-secrets-manager@0.0.5
 
 jobs:
   build:
@@ -99,3 +103,13 @@ workflows:
             branches:
               only:
                 - master
+      - aws-ecr/build-and-push-image:
+          context: techworks 
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+          repo: circleci-py-demo
+          create-repo: true
