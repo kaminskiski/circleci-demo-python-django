@@ -26,6 +26,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
       - run:
           command: |
             sudo pip install pipenv
@@ -50,7 +51,7 @@ jobs:
             # set -eo pipefail is default
             echo LOCAL_AWSCLI: ${LOCAL_AWSCLI} 
             echo AWS_RESOURCE_NAME_PREFIX: ${AWS_RESOURCE_NAME_PREFIX} 
-            if [[ "${CIRCLE_BRANCH}" == "master" &&  ${LOCAL_AWSCLI} == True ]] ; then
+            if [[ "${CIRCLE_BRANCH}" == "master" &&  "${LOCAL_AWSCLI}"" == "true" ]] ; then
               pip install awscli
               aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
               aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile default
@@ -58,6 +59,14 @@ jobs:
               aws s3 ls # circleci user is granted S3Read default permission.
 
             fi 
+      - save_cache:
+          key: aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
+          paths:
+            - '.venv'
+            - '~/.aws'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.6/site-packages'
+  
   aws-cli-example:
     # image hold has awscli installed by default
     executor: aws-cli/default
