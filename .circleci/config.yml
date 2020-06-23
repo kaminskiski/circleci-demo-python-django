@@ -47,7 +47,7 @@ jobs:
           destination: tr1
       - restore_cache:
           keys:
-            - aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
+            - aws-creds-techworks-circleci
             - aws-creds-{{ .Branch }}-
       - run:
           name: Install AWS CLI
@@ -64,7 +64,7 @@ jobs:
 
             fi 
       - save_cache:
-          key: aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
+          key: aws-creds-techworks-circleci
           paths:
             - '.venv'
             - '~/.aws'
