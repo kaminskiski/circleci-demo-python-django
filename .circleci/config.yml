@@ -27,7 +27,6 @@ jobs:
       - restore_cache:
           keys:
             - deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
       - run:
           command: |
             sudo pip install pipenv
@@ -46,6 +45,9 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+      - restore_cache:
+          keys:
+            - aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
       - run:
           name: Install AWS CLI
           command: |
