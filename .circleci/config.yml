@@ -49,6 +49,7 @@ jobs:
           command: |
             # set -eo pipefail is default
             echo LOCAL_AWSCLI: ${LOCAL_AWSCLI} 
+            echo AWS_RESOURCE_NAME_PREFIX: ${AWS_RESOURCE_NAME_PREFIX} 
             if [[ "${CIRCLE_BRANCH}" == "master" &&  ${LOCAL_AWSCLI} == True ]] ; then
               pip install awscli
               aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
