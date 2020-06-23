@@ -48,6 +48,7 @@ jobs:
       - restore_cache:
           keys:
             - aws-creds-{{ .Branch }}-{{ checksum "~/.aws/credentials" }}
+            - aws-creds-{{ .Branch }}-
       - run:
           name: Install AWS CLI
           command: |
