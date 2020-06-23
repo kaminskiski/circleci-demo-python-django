@@ -114,6 +114,7 @@ workflows:
           repo: circleci-py-demo
           create-repo: true
       - aws-ecs/deploy-service-update:
+          context: techworks
           requires:
             - aws-ecr/build-and-push-image
           filters:
