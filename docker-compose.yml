@@ -1,0 +1,19 @@
+version: '3'
+services:
+  circleci-py-demo:
+    #container_name: circleci-py-demo
+    environment:
+      - SERVICE_NAME=circleci-py-demo 
+    image: 955172481316.dkr.ecr.us-east-2.amazonaws.com/circleci-py-demo
+
+    ports:
+      # When networkMode=awsvpc, the host ports and container ports must match.
+      - "8080:8080"
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: new-product
+        awslogs-region: us-east-2
+        awslogs-stream-prefix: accounts
+
+
