@@ -113,7 +113,7 @@ workflows:
                 - master
           repo: circleci-py-demo
           create-repo: true
-          tag: ${CIRCLE_SHA1},${"${CIRCLE_BRANCH}"}
+          tag: ${CIRCLE_SHA1},"${CIRCLE_BRANCH}"
       - aws-ecs/deploy-service-update:
           context: techworks
           requires:
