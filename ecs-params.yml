@@ -1,0 +1,21 @@
+version: 1
+task_definition:
+  task_execution_role: ecsTaskExecutionRole
+  #task_role_arn: SvcLendup-NpAccounts
+  ecs_network_mode: awsvpc
+  task_size:
+    mem_limit: 0.5GB
+    cpu_limit: 256
+  services:
+    circleci-py-demo:
+      essential: true
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - subnet-0bb73e9436a484028
+        - subnet-089675e4d193dde1f
+      security_groups:
+        - sg-00eb024b9f3879282
+      assign_public_ip: ENABLED
+
